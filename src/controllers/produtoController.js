@@ -10,7 +10,7 @@ exports.get = (req,res,next) => {
     {
         (async () =>
         {
-            const db = require('D:/Git/MongoDB/bin/connection');
+            const db = require('../../bin/connection.js');
             const getProduct = await db.getProduct(id);
             res.status(200).send(getProduct)
         })()
@@ -31,7 +31,7 @@ exports.gets = (req,res,next) => {
     {
         (async () =>
         {
-            const db = require('D:/Git/MongoDB/bin/connection');
+            const db = require('../../bin/connection.js');
             const getProducts = await db.getProducts();
             res.status(200).send(getProducts)
         })()
@@ -53,7 +53,7 @@ exports.post = (req,res,next) => {
         var product = new Product(req.body);
         (async () =>
         {
-            const db = require('D:/Git/MongoDB/bin/connection');
+            const db = require('../../bin/connection.js');
             const insertProducts = await db.insertProducts(product);
             res.status(200).send(insertProducts)
         })()
@@ -70,7 +70,7 @@ exports.put = (req,res,next) => {
         var product = new Product(req.body);
         (async () =>
         {
-            const db = require('D:/Git/MongoDB/bin/connection');
+            const db = require('../../bin/connection.js');
             const updateProducts = await db.updateProducts(product);
             res.status(200).send(updateProducts)
         })()
@@ -86,7 +86,7 @@ exports.delete = (req,res,next) => {
         var product = new Product(req.body);
         (async () =>
         {
-            const db = require('D:/Git/MongoDB/bin/connection');
+            const db = require('../../bin/connection.js');
             const deleteProducts = await db.deleteProducts(product);
             res.status(200).send(deleteProducts)
         })()
