@@ -1,7 +1,8 @@
 'use strict'
 
-const Product = require('../models/produtoModel')
-
+const productModel = require('../models/produtoModel');
+const db = require('../../bin/connection.js');
+const val1 = 0;
 
 exports.get = (req,res,next) => {
 
@@ -50,48 +51,62 @@ exports.gets = (req,res,next) => {
 exports.post = (req,res,next) => {
     try
     {
-        var product = new Product(req.body);
-        (async () =>
+        const val1 = productModel.validate(req.body);
+        console.log("passou na validação: " + !val1.error + ' MSG: ' + val2)
+        if(!val1.error)
         {
-            const db = require('../../bin/connection.js');
-            const insertProducts = await db.insertProducts(product);
-            res.status(200).send(insertProducts)
-        })()
-
+            (async() =>
+            {
+                const db = require('../../bin/connection.js');
+                const insertProducts = await db.insertProducts(req.body);
+                res.status(200).send(insertProducts)
+            })()
+        }
+        res.status(400).send({meg: val1.error['message']})
     }catch(error)
     {
-
+        res.status(400).send({meg: val1.error['message']})
     }
 }
 
 exports.put = (req,res,next) => {
     try
     {
-        var product = new Product(req.body);
-        (async () =>
+        const val1 = productModel.validate(req.body);
+        console.log("passou na validação: " + !val1.error + ' MSG: ' + val1.error)
+        if(!val1.error)
         {
-            const db = require('../../bin/connection.js');
-            const updateProducts = await db.updateProducts(product);
-            res.status(200).send(updateProducts)
-        })()
+            (async () =>
+            {
+                const db = require('../../bin/connection.js');
+                const updateProducts = await db.updateProducts(req.body);
+                res.status(200).send(updateProducts)
+            })()
+        }
+        res.status(400).send({meg: val1.error['message']})
     }catch(error)
     {
-
+        res.status(400).send({meg: val1.error['message']})
     }
 }
 
 exports.delete = (req,res,next) => {
     try
     {
-        var product = new Product(req.body);
-        (async () =>
+        const val1 = productModel.validate(req.body);
+        console.log("passou na validação: " + !val1.error + ' MSG: ' + val1.error)
+        if(!val1.error)
         {
-            const db = require('../../bin/connection.js');
-            const deleteProducts = await db.deleteProducts(product);
-            res.status(200).send(deleteProducts)
-        })()
+            (async () =>
+            {
+                const db = require('../../bin/connection.js');
+                const deleteProducts = await db.deleteProducts(product);
+                res.status(200).send(deleteProducts)
+            })()
+        }
+        res.status(400).send({meg: val1.error['message']})
     }catch(error)
     {
-
+        res.status(400).send({meg: val1.error['message']})
     }
 }

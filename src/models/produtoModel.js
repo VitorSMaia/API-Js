@@ -1,37 +1,19 @@
-'use strict'
+const Joi = require('joi');
 
-const mongoose = require('mongoose');
-const productSchema = new mongoose.Schema({
-    title:{
-        type: String,
-        required: [true, 'O title é obrigatório.'],
-        trim:true
-    },
-    slug:{
-        type: String,
-        required: [true, 'O slug é obrigatório.'],
-        trim:true,
-        index:true,
-        unique:true
-    },
-    description:{
-        type: String,
-        required: [true, 'O description é obrigatório.'],
-        trim:true,
-    },
-    price:{
-        type: Number,
-        required: [true, 'O price é obrigatório.']
-    },
-    active:{
-        type: Boolean,
-        required:true,
-        default:true
-    },
-    tags:[{
-        type: String,
-        required: [true,'O tags é obrigatório']
-    }],
-});
+module.exports = Joi.object({
+    title: Joi.string()
+        .min(3)
+        .max(30)
+        .required(),
 
-module.exports = mongoose.model('Product', productSchema );
+    description: Joi.string()
+        .pattern(/^[a-zA-Z0-9]{3,30}$/),
+
+    active: Joi.boolean()
+        .default(true),
+    price: Joi.number()
+        .integer()
+        .required(),
+    slug: Joi.string(),
+    tags: Joi.array().items(Joi.string())
+})
