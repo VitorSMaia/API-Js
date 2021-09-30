@@ -31,14 +31,14 @@ async function connect(){
 
 async function findProduct(slug){
     const connection = await connect()
-    const [rows] = await connection.query('SELECT COUNT(*) AS Quant FROM product WHERE slug = ?', slug)
+    const [rows] = await connection.query('SELECT COUNT(*) AS Quant FROM produtos WHERE slug = ?', slug)
     return rows
 }
 
 async function getProduct(id){
 
     const connection = await connect.connect()
-    const [rows] = await connection.query('SELECT * FROM product WHERE id = ?', id)
+    const [rows] = await connection.query('SELECT * FROM produtos WHERE id = ?', id)
     return rows
 }
 
@@ -51,15 +51,14 @@ async function getProducts(){
     // )
 
     const connection = await connect()
-    const [rows] = await connection.query('SELECT * FROM product')
+    const [rows] = await connection.query('SELECT * FROM produtos')
     return rows
 }
 
 async function insertProducts(product){
-
     const connection = await connect()
-    const sql = 'INSERT INTO product(title,slug,description,price,tags,active) VALUES (?,?,?,?,?,?);'
-    const values = [product.title,product.slug,product.description,product.price,JSON.stringify(product.tags),product.active]
+    const sql = 'INSERT INTO produtos(title,slug,info,price,tags,state) VALUES (?,?,?,?,?,?);'
+    const values = [product.title,product.slug,product.info,product.price,JSON.stringify(product.tags),product.state]
     return await connection.query(sql,values)
 }
 

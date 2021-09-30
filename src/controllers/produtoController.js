@@ -52,7 +52,7 @@ exports.post = (req,res,next) => {
     try
     {
         const val1 = productModel.validate(req.body);
-        console.log("passou na validação: " + !val1.error + ' MSG: ' + val2)
+        console.log("passou na validação: " + !val1.error)
         if(!val1.error)
         {
             (async() =>
@@ -62,10 +62,9 @@ exports.post = (req,res,next) => {
                 res.status(200).send(insertProducts)
             })()
         }
-        res.status(400).send({meg: val1.error['message']})
-    }catch(error)
+    }catch($error)
     {
-        res.status(400).send({meg: val1.error['message']})
+        res.status(400).send($val1.error)
     }
 }
 

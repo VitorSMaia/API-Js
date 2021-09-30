@@ -6,10 +6,10 @@ module.exports = Joi.object({
         .max(30)
         .required(),
 
-    description: Joi.string()
+    info: Joi.string()
         .pattern(/^[a-zA-Z0-9]{3,30}$/),
 
-    active: Joi.boolean()
+    state: Joi.boolean()
         .default(true),
     price: Joi.number()
         .integer()
