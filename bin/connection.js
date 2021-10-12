@@ -29,15 +29,15 @@ async function connect(){
     return connection;
 }
 
-async function findProduct(slug){
+async function findProduct(id){
     const connection = await connect()
-    const [rows] = await connection.query('SELECT COUNT(*) AS Quant FROM produtos WHERE slug = ?', slug)
-    return rows
+    const [rows] = await connection.query('SELECT COUNT(*) AS Quant FROM produtos WHERE id = ?', id)
+    return rows[0].Quant
 }
 
 async function getProduct(id){
 
-    const connection = await connect.connect()
+    const connection = await connect()
     const [rows] = await connection.query('SELECT * FROM produtos WHERE id = ?', id)
     return rows
 }
@@ -56,25 +56,26 @@ async function getProducts(){
 }
 
 async function insertProducts(product){
+
     const connection = await connect()
     const sql = 'INSERT INTO produtos(title,slug,info,price,tags,state) VALUES (?,?,?,?,?,?);'
     const values = [product.title,product.slug,product.info,product.price,JSON.stringify(product.tags),product.state]
     return await connection.query(sql,values)
 }
 
-async function updateProducts(product){
+async function updateProducts(product,id){
 
     const connection = await connect()
-    const sql = 'UPDATE product SET title = ?,slug = ?,description = ?,price = ?,tags = ?,active = ?) WHERE id = ?;'
-    const values = [product.title,product.slug,product.description,product.price,JSON.stringify(product.tags),product.active,product.id]
+    const sql = 'UPDATE produtos SET title = ?,slug = ?,info = ?,price = ?,tags = ?,state = ? WHERE id = ?;'
+    const values = [product.title,product.slug,product.info,product.price,JSON.stringify(product.tags),product.state, id]
     return await connection.query(sql,values)
 }
 
-async function deleteProducts(product){
+async function deleteProducts(id){
 
     const connection = await connect()
-    const sql = 'DELETE FROM product WHERE id = ?;'
-    const values = [product.id]
+    const sql = 'DELETE FROM produtos WHERE id = ?;'
+    const values = [id]
     return await connection.query(sql,values)
 }
 
