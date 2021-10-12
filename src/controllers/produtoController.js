@@ -1,7 +1,8 @@
 'use strict'
 
 const productModel = require('../models/produtoModel');
-const db = require('../../bin/connection.js');
+const db = require('../repository/products-repository.js');
+// const db = require('../../bin/connection.js');
 const val1 = 0;
 
 exports.get = (req,res,next) => {
@@ -11,7 +12,6 @@ exports.get = (req,res,next) => {
         (async () =>
         {
             const id = req.params.id
-            const db = require('../../bin/connection.js');
             const findProduct = await db.findProduct(id);
             if( findProduct !== 0)
             {
@@ -23,13 +23,7 @@ exports.get = (req,res,next) => {
         })()
     }catch(error)
     {
-        res.status(400).send
-        (
-            {
-                message: 'Nada Encontrado!!',
-                data: error['message']
-            }
-        )
+        res.status(400).send({mesg: 'Nada Encontrado!!',data: error['message']})
     }
 }
 
@@ -38,7 +32,6 @@ exports.gets = (req,res,next) => {
     {
         (async () =>
         {
-            const db = require('../../bin/connection.js');
             const getProducts = await db.getProducts();
             res.status(200).send(getProducts)
         })()
@@ -57,7 +50,6 @@ exports.post = (req,res,next) => {
         {
             (async() =>
             {
-                const db = require('../../bin/connection.js');
                 const insertProducts = await db.insertProducts(req.body);
                 res.status(200).send(insertProducts)
             })()
@@ -78,7 +70,6 @@ exports.put = (req,res,next) => {
             (async () =>
             {
                 const id = req.params.id;
-                const db = require('../../bin/connection.js');
                 const findProducts = await db.findProduct(id);
                 if(findProducts !== 0)
                 {
@@ -103,7 +94,6 @@ exports.delete = (req,res,next) => {
         (async () =>
         {
             const id = req.params.id
-            const db = require('../../bin/connection.js');
             const findProducts = await db.findProduct(id);
             if( findProducts !== 0 )
             {
