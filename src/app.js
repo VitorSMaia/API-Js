@@ -10,7 +10,7 @@ const productsRoute = require('./routes/products-route');
 
 
 //BANCO DE DADOS
-// mongoose.connect('mongodb+srv://VitorMaia:Jvmme1306@cluster0.0aqy0.mongodb.net/Produto?retryWrites=true&w=majority')
+// mongoose.connect('mongodb+srv://@cluster0.0aqy0.mongodb.net/Produto?retryWrites=true&w=majority')
 // const db = require('../bin/connection');
 //CARREGAR MODELS
 const Products = require('./models/produtoModel');
