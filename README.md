@@ -2,6 +2,7 @@
 CRUD product example, using JavaScript with dependencies
 
 >    "body-parser": "^1.19.0",
+
 >    "debug": "^4.3.2",
 >    "dotenv": "^10.0.0",
 >    "express": "^4.17.1",
